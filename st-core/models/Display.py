@@ -1,6 +1,5 @@
 from models.product import Product
 
-
 class Display:
     def __init__(self,
                  tag_id: int,

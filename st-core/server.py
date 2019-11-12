@@ -1,13 +1,18 @@
+''' 
+Falta todo lo de get y post
+'''
+
 import logging
 import routes
 import settings
 
+from controllers.display import DisplayController
 from bottle import post, get, request, run
-from services.mqtt_client import MqttClient
+from services.mqtt_client import MqttClient, get_message
 
 from controllers.product import ProductController
 
-mqtt_client = MqttClient('localhost')
+mqtt_client = MqttClient('tailor.cloudmqtt.com',"zbtbveka","3QAhOmlBfa90",18091,"/BajarInfoTag")
 
 
 @get(routes.STATUS)
@@ -18,17 +23,10 @@ def status():
         'deployed at': settings.DEPLOYED_AT
     }
 
-@get(routes.JOIN_USER)
-def UserIn():
-    return UserLogin.verificate(request=request.json)
-
-@get(routes.REGISTER_USER)
-def UserRegister():
-    return UserLogin.addUser(request=request.json)
 
 @post(routes.UPDATE_DISPLAY)
 def update_display():
-    return ProductController.update(request=request.json, mqtt_client=mqtt_client)
+    return ProductController.update(location=DisplayController.verificate(request),request=request, mqtt_client=get_message)
 
 
 def run_server():

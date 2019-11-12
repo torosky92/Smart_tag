@@ -1,5 +1,6 @@
 from datetime import datetime
 
+
 class Product:
     def __init__(self,
                  product_id: int,
@@ -23,8 +24,4 @@ class Product:
             'name': self._name,
             'product_id': self._product_id,
             'price': self._price,
-            'quantity': self._quantity,
-            'expiration': self._expiration,
-            'discount': self._discount,
-            'description': self._description
         }
