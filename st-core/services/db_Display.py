@@ -45,7 +45,7 @@ class DBDisplay(Base):
       return (New_tag_id, New_store, New_location, New_product)
 
    def AddTag(TABLA: str, request: dict):
-      display=json.loads(request)
+      display=json.loads(request.body.read().decode("utf-8"))
       engine = create_engine(TABLA, echo=True)
       Session = sessionmaker(engine)
       session = Session()

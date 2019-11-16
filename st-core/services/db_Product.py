@@ -27,7 +27,10 @@ class DBProduct(Base):
             find_prod={"product_id":BaseData.product_id,"name":BaseData.name,"price":BaseData.price,
                      "discount":BaseData.discount,"quantity":BaseData.quantity,"expiration":BaseData.expiration,"description":BaseData.description}
             find_json=json.dumps(find_prod)
-            return find_json
+            return find_json         
+      find_prod={"product_id":0,"name":"","price":0, "discount":0,"quantity":0,"expiration":"","description":""}
+      find_json=json.dumps(find_prod)
+      return find_json
 
    def FindALLProduct(TABLA: str):
       engine = create_engine(TABLA, echo=True)
@@ -53,7 +56,7 @@ class DBProduct(Base):
       return (New_product_id, New_name, New_price, New_quantity, New_expiration, New_discount, New_description)
 
    def AddProduct(TABLA: str, request: dict):
-      product=json.loads(request)
+      product=json.loads(request.body.read().decode("utf-8"))
       engine = create_engine(TABLA, echo=True)
       Session = sessionmaker(engine)
       session = Session()

@@ -38,7 +38,7 @@ class DBUser(Base):
       return (New_User, New_Password)
 
    def AddUser(TABLA: str, request: dict):
-      users=json.loads(request)
+      users=json.loads(request.body.read().decode("utf-8"))
       engine = create_engine(TABLA, echo=True)
       Session = sessionmaker(engine)
       session = Session()

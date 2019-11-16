@@ -7,18 +7,17 @@ class UserController:
 
     @staticmethod
     def verificate(request: dict):
-        users = json.loads(request)
+        users = json.loads(request.body.read().decode("utf-8"))
         user_db = DBUser.FindUser('sqlite:///entidades/DB.db',users['user'])
         user_json = json.loads(user_db)
         if users['user']==user_json['user']:
             if users['password']==user_json['password']:
-                return True #Falta enviar al html
-        return False #Falta enviar al html
+                return True 
+        return False
     
     def update(request: dict):
-        users = json.loads(request)
         DBUser.AddUser('sqlite:///entidades/DB.db',users)
     
     def delete(request: dict):
-        users = json.loads(request)
+        users = json.loads(request.body.read().decode("utf-8"))
         DBUser.DeleteUser('sqlite:///entidades/DB.db',users['user'])
